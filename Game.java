@@ -89,5 +89,6 @@ public class Game {
 				i = kartu.size();
 			}
 		}
+	}
 }
 		
