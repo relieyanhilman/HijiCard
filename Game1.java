@@ -40,6 +40,16 @@ public class Game {
 
     public Game(String string, String string2, String string3) {
 	}
+      
+    // F02
+    public void ListCards(int pid) {
+     int nomor = 1;
+     System.out.println("Kartu-kartu yang dimiliki :");
+     for (int i = 0;i<=(getPlayerHandSize(pid)-1);i++){
+         System.out.println(nomor+". "+getPlayerCard(pid, i));
+         nomor++;
+     }
+    }
 
 	public void start(Game game) {
         HijiCard card = deck.drawCard();
