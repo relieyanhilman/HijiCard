@@ -21,17 +21,33 @@ public class Main {
 
                     System.out.println("yang bermain sekarang adalah: " + HIJI.getCurrentPlayer());
                     System.out.println("kartu yang lu punya sekarang " + HIJI.getPlayerHand(HIJI.getCurrentPlayer()));
-                    System.out.println("silakan lu submit kartu lu, kalo ga ada draw");
+                    
 
                     // pilihan = sc.nextLine();
+                    System.out.println("pilih menu: ");
                     String pilihanFungsi = sc.nextLine();
                     // if (pilihanFungsi.equals("F04")){
                     //     HIJI.
                     // }
                     if (pilihanFungsi.equals("F02")){
-                        System.out.println(HIJI.getPlayerHand(HIJI.getCurrentPlayer()));
-                    }else{System.out.println("belum ada inputan");}
+                        //System.out.println(HIJI.getPlayerHand(HIJI.getCurrentPlayer()));
+                        HIJI.ListCards(HIJI.getCurrentPlayer());
+                    }else if (pilihanFungsi.equals("F03")){
+                        System.out.println("submit player card: ");
+                        System.out.println("nomor list kartu yang ingin dikeluarkan: ");
+                        int pilihanKartuList = sc.nextInt();
+                        HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), HIJI.getPlayerCard(HIJI.getCurrentPlayer(), (pilihanKartuList - 1) ), HIJI.getPlayerCard(HIJI.getCurrentPlayer(), pilihanKartuList - 1 ).getColors());
+                
+                    }
+                    else if (pilihanFungsi.equals("F04")) {
+                        System.out.println("Draw Kartu");
+                        
+                    }
+                  
+
                     pilihan = sc.nextLine();
+
+                    
 
                 } else if (pilihan.equals("F02")) {
                     System.out.println("List Cards");

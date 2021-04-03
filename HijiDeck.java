@@ -84,12 +84,12 @@ public class HijiDeck {
         return cards[--cardsInDeck];
     }
 
-    public ImageIcon drawCardImage() throws IllegalArgumentException {
-        if (isEmpty()) {
-            throw new IllegalArgumentException("tidak bisa draw kartu karena deck kosong");
-        }
-        return new ImageIcon(cards[--cardsInDeck].toString() + ".png");
-    }
+    // public ImageIcon drawCardImage() throws IllegalArgumentException {
+    //     if (isEmpty()) {
+    //         throw new IllegalArgumentException("tidak bisa draw kartu karena deck kosong");
+    //     }
+    //     return new ImageIcon(cards[--cardsInDeck].toString() + ".png");
+    // }
 
 
     public HijiCard[] drawCard(int n){
