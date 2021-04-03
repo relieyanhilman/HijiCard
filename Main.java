@@ -17,6 +17,7 @@ public class Main {
 
             } else if (pilihan.equals("F02")) {
                 System.out.println("List Cards");
+                ListCards(getCurrentPlayer());
             } else if (pilihan.equals("F03")) {
                 System.out.println("Discard");
             } else if (pilihan.equals("F04")) {
