@@ -1,6 +1,6 @@
-package hiji;
+// package hiji;
 
-public class Card{
+public class HijiCard{
 	enum Color{
 		Red, Blue, Green, Yellow, Wild;
 
@@ -22,16 +22,16 @@ public class Card{
 	private final Color color;
 	private final Value value;
 
-	public Card(final Color color, final Value value){
+	public HijiCard(final Color color, final Value value){
 		this.color = color;
 		this.value = value;
 	}
 
-	public Color getColor(){
+	public Color getColors(){
 		return this.color;
 	}
 
-	public value getValue(){
+	public Value getValues(){
 		return this.value;
 	}
 
