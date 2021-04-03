@@ -2,16 +2,15 @@ import java.awt.Font;
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Game {
+public class Game1 {
     private int currentPlayer;
     private String[] playerIds;
 
-    private HijiDeck deck;
+    HijiDeck deck;
     private ArrayList<ArrayList<HijiCard>> playerHand;
     private ArrayList<HijiCard> stockPile;
 
@@ -20,8 +19,12 @@ public class Game {
 
     boolean gameDirection;
 
-    public Game(String[] pids) {
+    public Game1(String[] pids) {
         deck = new HijiDeck();
+        
+
+        // deck.shuffle();
+        deck.reset();
         deck.shuffle();
         stockPile = new ArrayList<HijiCard>();
 
@@ -38,21 +41,21 @@ public class Game {
 
     }
 
-    public Game(String string, String string2, String string3) {
-	}
-      
     // F02
-    public void ListCards(int pid) {
-     int nomor = 1;
-     System.out.println("Kartu-kartu yang dimiliki :");
-     for (int i = 0;i<=(getPlayerHandSize(pid)-1);i++){
-         System.out.println(nomor+". "+getPlayerCard(pid, i));
-         nomor++;
-     }
+    public void ListCards(String pid){
+        int nomor = 1;
+        System.out.println("Kartu yang dimiliki :");
+         for (int i=0;i<=(getPlayerHandSize(pid)-1);i++){
+             System.out.println(nomor+". "+getPlayerCard(pid, i));
+             nomor++;
+         }
     }
 
-	public void start(Game game) {
+    
+
+	public void start(Game1 game) {
         HijiCard card = deck.drawCard();
+        System.out.println(card);
         validColor = card.getColors();
         validValue = card.getValues();
 
@@ -60,14 +63,14 @@ public class Game {
             start(game);
         }
 
-        if (card.getValues() == HijiCard.Value.Wild_Four || card.getValues() == HijiCard.Value.DrawTwo) {
+        if (card.getValues() == HijiCard.Value.WildFour || card.getValues() == HijiCard.Value.DrawTwo) {
             start(game);
         }
 
         if (card.getValues() == HijiCard.Value.Skip) {
-            JLabel message = new JLabel(playerIds[currentPlayer] + "was skipped!");
-            message.setFont(new Font("Arial", Font.BOLD, 48));
-            JOptionPane.showMessageDialog(null, message);
+            // JLabel message = new JLabel(playerIds[currentPlayer] + "was skipped!");
+            // message.setFont(new Font("Arial", Font.BOLD, 48));
+            // JOptionPane.showMessageDialog(null, message);
 
             if (gameDirection == false) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;
@@ -82,9 +85,9 @@ public class Game {
 
         }
         if (card.getValues() == HijiCard.Value.Reverse) {
-            JLabel message = new JLabel(playerIds[currentPlayer] + " The game direction changed! ");
-            message.setFont(new Font("Arial", Font.BOLD, 48));
-            JOptionPane.showMessageDialog(null, message);
+            // JLabel message = new JLabel(playerIds[currentPlayer] + " The game direction changed! ");
+            // message.setFont(new Font("Arial", Font.BOLD, 48));
+            // JOptionPane.showMessageDialog(null, message);
             gameDirection ^= true;
             currentPlayer = playerIds.length - 1;
 
@@ -97,7 +100,7 @@ public class Game {
     public HijiCard getTopCard() {
         return new HijiCard(validColor, validValue);
     }
-
+        
     public ImageIcon getTopCardImage() {
         return new ImageIcon(validColor + "-"+ validValue+ ".png");
     }
@@ -194,19 +197,19 @@ public class Game {
                 }
 
                 
-                // HijiCard.Value actual;
-                // HijiCard.Value expected;
+                HijiCard.Value actual;
+                HijiCard.Value expected;
                 if (card.getColors() != validColor) {
-                    JLabel message = new JLabel("Invalid player move, expected color: " + validColor + " but got color " + card.getColors());
-                    message.setFont(new Font("Arial", Font.BOLD, 48));
-                    JOptionPane.showMessageDialog(null, message);
+                    String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();
+                    // message.setFont(new Font("Arial", Font.BOLD, 48));
+                    // JOptionPane.showMessageDialog(null, message);
                     throw new InvalidColorSubmissionException(message, card.getColors(), validColor);
                 }
 
                 else if (card.getValues() != validValue){
-                    JLabel message2 = new JLabel("Invalid player move, expected color: " + validValue + " but got color " + card.getValues());
-                    message2.setFont(new Font("Arial", Font.BOLD, 48));
-                    JOptionPane.showMessageDialog(null, message2);
+                    String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
+                    // message2.setFont(new Font("Arial", Font.BOLD, 48));
+                    // JOptionPane.showMessageDialog(null, message2);
                     throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
                 }
                 
@@ -215,9 +218,9 @@ public class Game {
         pHand.remove(card);
 
         if (hasEmptyHand(this.playerIds[currentPlayer])) {
-            JLabel message2 = new JLabel(this.playerIds[currentPlayer] + ("won the ! thank you for playing!")) ;
-            message2.setFont(new Font("Arial", Font.BOLD, 48));
-            JOptionPane.showMessageDialog(null, message2);
+            String message2 = this.playerIds[currentPlayer] + ("won the ! thank you for playing!");
+            // message2.setFont(new Font("Arial", Font.BOLD, 48));
+            // JOptionPane.showMessageDialog(null, message2);
             System.exit(0);
         }
 
@@ -245,22 +248,22 @@ public class Game {
             pid = playerIds[currentPlayer];
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
-            JLabel message = new JLabel(pid + " drew 2 cards!");
+            // JLabel message = new JLabel(pid + " drew 2 cards!");
         }
         
-        if (card.getValues() == HijiCard.Value.Wild_Four) {
+        if (card.getValues() == HijiCard.Value.WildFour) {
             pid = playerIds[currentPlayer];
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
-            JLabel message = new JLabel(pid + " drew 4 cards!");
+            // JLabel message = new JLabel(pid + " drew 4 cards!");
         }
 
         if (card.getValues() == HijiCard.Value.Skip) {
-            JLabel message = new JLabel(playerIds[currentPlayer] + (" was skipped!"));
-            message.setFont(new Font("Arial", Font.BOLD, 48));
-            JOptionPane.showMessageDialog(null, message);
+            // JLabel message = new JLabel(playerIds[currentPlayer] + (" was skipped!"));
+            // message.setFont(new Font("Arial", Font.BOLD, 48));
+            // JOptionPane.showMessageDialog(null, message);
             if (gameDirection == false) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;
 
@@ -275,9 +278,9 @@ public class Game {
         }
 
         if (card.getValues() == HijiCard.Value.Reverse) {
-            JLabel message = new JLabel(pid + (" changed the game direction"));
-            message.setFont(new Font("Arial", Font.BOLD, 48));
-            JOptionPane.showMessageDialog(null, message);
+            // JLabel message = new JLabel(pid + (" changed the game direction"));
+            // message.setFont(new Font("Arial", Font.BOLD, 48));
+            // JOptionPane.showMessageDialog(null, message);
 
             gameDirection ^= true;
             if (gameDirection == true) {
@@ -321,7 +324,7 @@ class InvalidPlayerTurnException extends Exception {
 class InvalidColorSubmissionException extends Exception {
     private HijiCard.Color expected;
     private HijiCard.Color actual;
-    public InvalidColorSubmissionException(JLabel message, HijiCard.Color actual, HijiCard.Color expected) {
+    public InvalidColorSubmissionException(String message, HijiCard.Color actual, HijiCard.Color expected) {
         this.actual = actual;
         this.expected = expected;
     }
@@ -331,7 +334,7 @@ class InvalidValueSubmissionException extends Exception {
     private HijiCard.Value expected;
     private HijiCard.Value actual;
 
-    public InvalidValueSubmissionException(JLabel message, HijiCard.Value actual, HijiCard.Value expected) {
+    public InvalidValueSubmissionException(String message, HijiCard.Value actual, HijiCard.Value expected) {
         this.actual = actual;
         this.expected = expected;
     }

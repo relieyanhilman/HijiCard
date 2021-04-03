@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 public class HijiDeck {
 
     private HijiCard[] cards;
-    private int cardsInDeck;
+    /* private*/ int cardsInDeck;
 
     public HijiDeck() {
         cards = new HijiCard[108];
@@ -20,7 +20,7 @@ public class HijiDeck {
             HijiCard.Color warna = colors[i];
             cards[cardsInDeck++] = new HijiCard(warna, HijiCard.Value.getValue(0));
 
-            for (int j = 0; j < 10; j++) {
+            for (int j = 1; j < 10; j++) {
                 // HijiCard.Value[] values = HijiCard.Value.values();
                 // HijiCard.Value nilai = values[i];
 
@@ -38,7 +38,7 @@ public class HijiDeck {
 
         }
 
-        HijiCard.Value[] values = new HijiCard.Value[] { HijiCard.Value.Wild, HijiCard.Value.Wild_Four };
+        HijiCard.Value[] values = new HijiCard.Value[] { HijiCard.Value.Wild, HijiCard.Value.WildFour };
         for (HijiCard.Value value : values) {
             for (int i = 0; i < 4; i++) {
                 cards[cardsInDeck++] = new HijiCard(HijiCard.Color.Wild, value);
