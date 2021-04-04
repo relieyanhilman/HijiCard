@@ -15,6 +15,7 @@ public class Main {
         
         
             while (!pilihan.equals("EXIT")) {
+
                 if (pilihan.equals("F01")) {
                     System.out.println("START GAME");
 
@@ -23,6 +24,8 @@ public class Main {
 
                     String[] Pemain = new String[banyakPemain];
                     String str = null;
+                    boolean submitted = false;
+                    boolean udahDraw = false;
                     System.out.println("masukkan nama pemain: ");
                     for (int i = 0; i< banyakPemain; i++){
                         Pemain[i] = sc.next();
@@ -47,19 +50,28 @@ public class Main {
                             System.out.println("List Cards");
                             HIJI.ListCards(HIJI.getCurrentPlayer()); // asumsi, bisa ngejalanin F02 kalau sudah dilaksanakan F01
                             pilihan = sc.next();
-                        } else if (pilihan.equals("F03")) {
+                        } else if (pilihan.equals("F03") && submitOrDraw == false) {
                             System.out.println("Discard");
+                            submitOrDraw = true;
                             pilihan = sc.next();
-                        
-                        } else if (pilihan.equals("F04")) {
+                        } else if (pilihan.equals("F04") && submitOrDraw == false) {
                             System.out.println("Draw");
-                            pilihan = sc.next();
                             
+                            HIJI.submitDraw(HIJI.getCurrentPlayer());
+                            
+                            Draw = true;
+                            pilihan = sc.next();
+                            if (pilihan.equals("F09")){
+                                System.out.println("lanjut main");
+                                submitOrDraw = false;
+                                HIJI.lanjutMain();
+                            }
                         } else if (pilihan.equals("F05")) {
                             System.out.println("Declare HIJI");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F06")) {
                             System.out.println("List Players");
+
                             pilihan = sc.next();
                         } else if (pilihan.equals("F07")) {
                             System.out.println("View Player in Turn");
@@ -67,14 +79,11 @@ public class Main {
                         } else if (pilihan.equals("F08")) {
                             System.out.println("Help");
                             pilihan = sc.next();
-        
                         }
                         else if (pilihan.equals("EXIT")){
                             System.exit(0);
-                        }
-                    }System.out.println("game sedang berjalan");
-                    System.out.print("pilih menu: ");
-                    pilihan = sc.next();
+                        }else 
+                    }
 
 
                     // if (pilihanFungsi.equals("F04")){

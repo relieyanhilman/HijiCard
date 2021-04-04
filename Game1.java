@@ -48,14 +48,10 @@ public class Game1 {
         Random random = new Random();
 
         
-        int randomValue = random.nextInt(playerIds.length- 1);
+        int randomValue = random.nextInt(playerIds.length);
         System.out.println("random Value :" + randomValue);
         currentPlayer = randomValue;
-        if (getCurrentPlayer() == null){
-            randomPemain();
-        }
         
-
     }
 
     // F02
@@ -67,7 +63,17 @@ public class Game1 {
              nomor++;
          }
     }
+    
 
+    // F06
+    public void ListPlayers() {
+        int nomor = 1;
+        for (int i=0 ; i<=(getPlayers().length-1) ;i++){
+            System.out.println("Pemain "+nomor+": "+playerIds[i]);
+            System.out.println("jumlah kartu : "+getPlayerHandSize(playerIds[i]));
+            System.out.println(" ");
+        }
+    }
     
 
 	public void start(Game1 game) {
@@ -168,15 +174,15 @@ public class Game1 {
         return card.getColors() == validColor || card.getValues() == validValue;
     }
 
-    public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException {
-        if (this.playerIds[this.currentPlayer] != pid) {
-            throw new InvalidPlayerTurnException("it is not " + pid + " 's turn", pid);
-        }
+    // public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException {
+    //     if (this.playerIds[this.currentPlayer] != pid) {
+    //         throw new InvalidPlayerTurnException("it is not " + pid + " 's turn", pid);
+    //     }
         
-    }
+    // }
 
-    public void submitDraw(String pid) throws InvalidPlayerTurnException {
-        checkPlayerTurn(pid);
+    public void submitDraw(String pid){ //throws InvalidPlayerTurnException 
+        // checkPlayerTurn(pid);
 
         if (deck.isEmpty()){
             deck.replaceDeckWith(stockPile);
@@ -185,6 +191,19 @@ public class Game1 {
         }
 
         getPlayerHand(pid).add(deck.drawCard());
+        // if(gameDirection == false) {
+        //     currentPlayer = (currentPlayer +1) % playerIds.length;
+        // }
+
+        // else if(gameDirection == true){
+        //     currentPlayer = (currentPlayer -1) % playerIds.length;
+        //     if (currentPlayer == -1) {
+        //         currentPlayer = playerIds.length - 1;
+        //     }
+        // }
+    }
+
+    public void lanjutMain(){
         if(gameDirection == false) {
             currentPlayer = (currentPlayer +1) % playerIds.length;
         }
@@ -203,7 +222,7 @@ public class Game1 {
 
     public void submitPlayerCard(String pid, HijiCard card, HijiCard.Color declaredColor) 
         throws InvalidColorSubmissionException, InvalidValueSubmissionException, InvalidPlayerTurnException {
-            checkPlayerTurn(pid);
+            // checkPlayerTurn(pid);
 
             ArrayList<HijiCard> pHand = getPlayerHand(pid);
 
