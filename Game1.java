@@ -5,12 +5,13 @@ import java.util.Arrays;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.util.Random;
 
 public class Game1 {
     private int currentPlayer;
-    private String[] playerIds;
+    String[] playerIds; //nnti diubah lagi jadi private
 
-    HijiDeck deck;
+    HijiDeck deck; /* nanti diubah lagi jadi private */
     private ArrayList<ArrayList<HijiCard>> playerHand;
     private ArrayList<HijiCard> stockPile;
 
@@ -30,6 +31,7 @@ public class Game1 {
 
         playerIds = pids;
         currentPlayer = 0;
+        randomPemain();
         gameDirection = false;
 
         playerHand = new ArrayList<ArrayList<HijiCard>>();
@@ -38,6 +40,21 @@ public class Game1 {
             ArrayList<HijiCard> hand = new ArrayList<HijiCard>(Arrays.asList(deck.drawCard(7)));
             playerHand.add(hand);
         }
+
+    }
+    
+    //shuffle urutan pemain pada awal permainan
+    public void randomPemain(){
+        Random random = new Random();
+
+        
+        int randomValue = random.nextInt(playerIds.length- 1);
+        System.out.println("random Value :" + randomValue);
+        currentPlayer = randomValue;
+        if (getCurrentPlayer() == null){
+            randomPemain();
+        }
+        
 
     }
 
