@@ -68,6 +68,14 @@ public class Game1 {
          }
     }
 
+    // F06
+    public void ListPlayers(){
+        int nomor = 1;
+        for (int i=0;i<=(playerIds.length()-1);i++){
+            System.out.println("pemain : ");
+        }
+    }
+
     
 
 	public void start(Game1 game) {
