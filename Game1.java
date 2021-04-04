@@ -66,6 +66,7 @@ public class Game1 {
     
 
     // F06
+<<<<<<< HEAD
     public void ListPlayers() {
         int nomor = 1;
         for (int i=0 ; i<=(getPlayers().length-1) ;i++){
@@ -74,6 +75,15 @@ public class Game1 {
             System.out.println(" ");
         }
     }
+=======
+    public void ListPlayers(){
+        int nomor = 1;
+        for (int i=0;i<=(playerIds.length()-1);i++){
+            System.out.println("pemain : ");
+        }
+    }
+
+>>>>>>> 7539fbb0a051094427571a777b13d0097b09b0cf
     
 
 	public void start(Game1 game) {
