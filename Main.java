@@ -100,7 +100,7 @@ public class Main {
                                    System.out.println(e);
                             }
                             catch (InvalidValueSubmissionException e) {
-                                System.out.println(e);
+                                   System.out.println(e);
                             }
                         } }else if (pilihan.equals("F04")) {
                             System.out.println("Draw");
