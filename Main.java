@@ -55,20 +55,63 @@ public class Main {
                             System.out.println("List Cards");
                             HIJI.ListCards(HIJI.getCurrentPlayer()); // asumsi, bisa ngejalanin F02 kalau sudah dilaksanakan F01
                             pilihan = sc.next();
-                        } else if (pilihan.equals("F03") && submitOrDraw == false) {
+                        } else if (pilihan.equals("F03"))  {
+                            HijiCard.Color colorChoosen;
                             System.out.println("Discard");
-                            submitOrDraw = true;
-                            pilihan = sc.next();
-                        } else if (pilihan.equals("F04") && submitOrDraw == false) {
+                            System.out.println("silakan pilih nomor kartu di list kartu: ");
+                            int pilihanKartu = sc.nextInt();
+                            
+                            HijiCard cardChoosen = HIJI.getPlayerCard(HIJI.getCurrentPlayer(), pilihanKartu);
+                            if (cardChoosen.getColors() == HijiCard.Color.Wild){
+                                System.out.println("silakan pilih warna: ");
+                                for (int i=0; i<4 ; i++){
+                                    if (i==0){
+                                        System.out.println(i+1+". Red");
+                                    }
+                                    else if (i==1){
+                                        System.out.println(i+1+". Blue");
+                                    }
+                                    else if (i==2){
+                                        System.out.println(i+1+". Yellow");
+                                    }
+                                    else {
+                                        System.out.println(i+1+". Green");
+                                    }
+                                }
+                                String pilihanWarna = sc.next();
+                                if (pilihanWarna == "Red"){
+                                    colorChoosen = HijiCard.Color.Red;
+                                }
+                                else if (pilihanWarna == "Blue"){
+                                    colorChoosen = HijiCard.Color.Blue;
+                                }
+                                else if (pilihanWarna == "Green"){
+                                    colorChoosen = HijiCard.Color.Green;
+                                }else{
+                                    colorChoosen = HijiCard.Color.Yellow;
+                                }
+
+                            try{HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
+                            HIJI.getPlayerHand(HIJI.getCurrentPlayer());}
+                            catch (InvalidColorSubmissionException e) {
+                                   System.out.println(e);
+                            }
+                            catch (InvalidPlayerTurnException e) {
+                                   System.out.println(e);
+                            }
+                            catch (InvalidValueSubmissionException e) {
+                                System.out.println(e);
+                            }
+                        } }else if (pilihan.equals("F04")) {
                             System.out.println("Draw");
                             
                             HIJI.submitDraw(HIJI.getCurrentPlayer());
                             
-                            Draw = true;
+                            
                             pilihan = sc.next();
                             if (pilihan.equals("F09")){
                                 System.out.println("lanjut main");
-                                submitOrDraw = false;
+                                
                                 HIJI.lanjutMain();
                             }
                         } else if (pilihan.equals("F05")) {
