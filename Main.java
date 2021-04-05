@@ -19,14 +19,19 @@ public class Main {
                 if (pilihan.equals("F01")) {
                     System.out.println("START GAME");
 
-                    System.out.print("masukkan banyaknya pemain: ");
+                    System.out.print("Masukkan banyaknya pemain: ");
                     int banyakPemain = sc.nextInt();
+                    while (banyakPemain>6 && banyakPemain<2){
+                        System.out.println("Jumlah yang dimasukkan tidak sesuai!");
+                        System.out.print("Masukkan banyaknya pemain: ");
+                        banyakPemain = sc.nextInt();
+                    }
 
                     String[] Pemain = new String[banyakPemain];
                     String str = null;
                     boolean submitted = false;
                     boolean udahDraw = false;
-                    System.out.println("masukkan nama pemain: ");
+                    System.out.println("Masukkan nama pemain: ");
                     for (int i = 0; i< banyakPemain; i++){
                         Pemain[i] = sc.next();
                     }
@@ -82,7 +87,7 @@ public class Main {
                         }
                         else if (pilihan.equals("EXIT")){
                             System.exit(0);
-                        }else 
+                        } //else 
                     }
 
 
