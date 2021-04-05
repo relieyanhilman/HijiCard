@@ -79,6 +79,13 @@ public class Game1 {
             }        
         }
     }
+
+
+    // F07
+    public void ViewPlayerInTurn() {
+        System.out.println("Sekarang giliran : "+getCurrentPlayer());
+        System.out.println("Selanjutnya giliran : "+playerIds[this.currentPlayer+1]);
+    }
     
 
 	public void start(Game1 game) {
