@@ -1,10 +1,14 @@
 
 import java.util.*;
+
+
+
 import java.lang.*;
 
 public class Main {
 
     public static void main(String[] args) {
+        
         System.out.println("Welcome to the Hiji");
         Scanner sc = new Scanner(System.in);
         System.out.print("pilih menu : ");
@@ -56,53 +60,48 @@ public class Main {
                             HIJI.ListCards(HIJI.getCurrentPlayer()); // asumsi, bisa ngejalanin F02 kalau sudah dilaksanakan F01
                             pilihan = sc.next();
                         } else if (pilihan.equals("F03"))  {
-                            HijiCard.Color colorChoosen;
+                            HijiCard.Color colorChoosen = HijiCard.Color.Red;
                             System.out.println("Discard");
                             System.out.println("silakan pilih nomor kartu di list kartu: ");
                             int pilihanKartu = sc.nextInt();
                             
                             HijiCard cardChoosen = HIJI.getPlayerCard(HIJI.getCurrentPlayer(), pilihanKartu);
-                            if (cardChoosen.getColors() == HijiCard.Color.Wild){
-                                System.out.println("silakan pilih warna: ");
-                                for (int i=0; i<4 ; i++){
-                                    if (i==0){
-                                        System.out.println(i+1+". Red");
-                                    }
-                                    else if (i==1){
-                                        System.out.println(i+1+". Blue");
-                                    }
-                                    else if (i==2){
-                                        System.out.println(i+1+". Yellow");
-                                    }
-                                    else {
-                                        System.out.println(i+1+". Green");
-                                    }
-                                }
+                            
+                           
+                            if (cardChoosen.getColors() == HijiCard.Color.Wild) {
+                                System.out.println("silakan pilih warna: \n 1. Red \n 2. Blue \n 3. Yellow \n 4. Green");
+                                
                                 String pilihanWarna = sc.next();
-                                if (pilihanWarna == "Red"){
+                                if (pilihanWarna.equals("Red")){
                                     colorChoosen = HijiCard.Color.Red;
                                 }
-                                else if (pilihanWarna == "Blue"){
+                                else if (pilihanWarna.equals("Blue")){
                                     colorChoosen = HijiCard.Color.Blue;
                                 }
-                                else if (pilihanWarna == "Green"){
+                                else if (pilihanWarna.equals("Green")){
                                     colorChoosen = HijiCard.Color.Green;
-                                }else{
+                                }else if (pilihanWarna.equals("Yellow")){
                                     colorChoosen = HijiCard.Color.Yellow;
-                                }
+                                } }
+                            
+                            
 
+                            System.out.println("apakah aman?");
+                        
                             try{HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
-                            HIJI.getPlayerHand(HIJI.getCurrentPlayer());}
-                            catch (InvalidColorSubmissionException e) {
-                                   System.out.println(e);
-                            }
-                            catch (InvalidPlayerTurnException e) {
-                                   System.out.println(e);
-                            }
-                            catch (InvalidValueSubmissionException e) {
-                                   System.out.println(e);
-                            }
-                        } }else if (pilihan.equals("F04")) {
+                                HIJI.getPlayerHand(HIJI.getCurrentPlayer());}
+                                catch (InvalidColorSubmissionException e) {
+                                       System.out.println(e);
+                                }
+                                catch (InvalidPlayerTurnException e) {
+                                       System.out.println(e);
+                                }
+                                catch (InvalidValueSubmissionException e) {
+                                       System.out.println(e);
+                                }
+                            
+                            pilihan = sc.next();
+                         } else if (pilihan.equals("F04")) {
                             System.out.println("Draw");
                             
                             HIJI.submitDraw(HIJI.getCurrentPlayer());

@@ -3,17 +3,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Declare {
-    static volatile boolean isTimeCopleted = true;
+    static volatile boolean isTimeCompleted = true;
 
-    public static void main(String[] args) {
+    // public static void main(String[] args) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
 
             @Override
             public void run() {
-                if (isTimeCopleted) {
+                if (isTimeCompleted) {
                     System.out.println("Waktu kamu habis, kamu akan mendapat tambahan 2 kartu!");
-                    // tambah kartu
+                    
                 }
             }
         };
@@ -23,9 +23,9 @@ public class Declare {
 
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
-        isTimeCopleted = false;
+        isTimeCompleted = false;
 
 
         System.out.println("Berhasil!");
-    }
+    // }
 }

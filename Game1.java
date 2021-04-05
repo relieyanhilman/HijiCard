@@ -70,7 +70,7 @@ public class Game1 {
         int nomor = 1;
         for (int i=0 ; i<=(getPlayers().length-1) ;i++){
             System.out.println("Pemain "+nomor+": "+playerIds[i]);
-            System.out.println("jumlah kartu : "+getPlayerHandSize(playerIds[i]));
+            System.out.println("Jumlah kartu : "+getPlayerHandSize(playerIds[i]));
             if (getCurrentPlayer()==playerIds[i]){
             System.out.println("Sedang  giliran");
             }
@@ -184,6 +184,10 @@ public class Game1 {
         return getPlayerHand(pid).isEmpty();
     }
 
+    public boolean cardLeftOne(String pid){
+        return (getPlayerHandSize(getCurrentPlayer())==1);
+    }
+
     public boolean validCardPlay(HijiCard card){
         return card.getColors() == validColor || card.getValues() == validValue;
     }
@@ -198,14 +202,14 @@ public class Game1 {
     public void submitDraw(String pid){ //throws InvalidPlayerTurnException 
         // checkPlayerTurn(pid);
 
-        if (deck.isEmpty()){
+        if (deck.isEmpty()) {
             deck.replaceDeckWith(stockPile);
             deck.shuffle();
 
         }
 
         getPlayerHand(pid).add(deck.drawCard());
-        // if(gameDirection == false) {
+        // if(gameDirection == false){
         //     currentPlayer = (currentPlayer +1) % playerIds.length;
         // }
 
@@ -214,7 +218,7 @@ public class Game1 {
         //     if (currentPlayer == -1) {
         //         currentPlayer = playerIds.length - 1;
         //     }
-        // }
+        // } karena abis draw masih bisa nge submit card
     }
 
     public void lanjutMain(){
@@ -249,29 +253,43 @@ public class Game1 {
                 
                 HijiCard.Value actual;
                 HijiCard.Value expected;
-                if (card.getColors() != validColor) {
-                    String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();
-                    // message.setFont(new Font("Arial", Font.BOLD, 48));
-                    // JOptionPane.showMessageDialog(null, message);
-                    throw new InvalidColorSubmissionException(message, card.getColors(), validColor);
-                }
 
-                else if (card.getValues() != validValue){
-                    String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
-                    // message2.setFont(new Font("Arial", Font.BOLD, 48));
-                    // JOptionPane.showMessageDialog(null, message2);
-                    throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
-                }
+                
+                    if ((card.getColors() != validColor) && (card.getValues() != validValue)) {
+                        String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();
+                        String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
+                        // message.setFont(new Font("Arial", Font.BOLD, 48));
+                        // JOptionPane.showMessageDialog(null, message);
+                        throw new InvalidColorSubmissionException(message, card.getColors(), validColor);
+                        // message2.setFont(new Font("Arial", Font.BOLD, 48));
+                        // JOptionPane.showMessageDialog(null, message2);
+                        // throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
+                        
+                    }
+                  
+                
+
+                // else if (card.getValues() != validValue){
+                //     String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
+                //     // message2.setFont(new Font("Arial", Font.BOLD, 48));
+                //     // JOptionPane.showMessageDialog(null, message2);
+                //     throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
+                // }
                 
             }
 
         pHand.remove(card);
 
         if (hasEmptyHand(this.playerIds[currentPlayer])) {
-            String message2 = this.playerIds[currentPlayer] + ("won the ! thank you for playing!");
+            String message2 = this.playerIds[currentPlayer] + ("Congratulation you won the game! Thank you for playing!");
             // message2.setFont(new Font("Arial", Font.BOLD, 48));
             // JOptionPane.showMessageDialog(null, message2);
             System.exit(0);
+        }
+
+        if (cardLeftOne(getCurrentPlayer())){
+            
+            
         }
 
         validColor = card.getColors();
