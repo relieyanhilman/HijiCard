@@ -77,7 +77,8 @@ public class Game1 {
             else if (getCurrentPlayer()!=playerIds[i]){
             System.out.println("Tidak sedang dalam giliran");
             }
-            System.out.println();        
+            System.out.println();
+            nomor++;        
         }
     }
 
@@ -85,7 +86,7 @@ public class Game1 {
     // F07
     public void ViewPlayerInTurn() {
         System.out.println("Sekarang giliran : "+getCurrentPlayer());
-        System.out.println("Selanjutnya giliran : "+playerIds[this.currentPlayer+1]);
+        System.out.println("Selanjutnya giliran : "+playerIds[(this.currentPlayer+1) % playerIds.length]);
     }
     
 
