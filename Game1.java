@@ -76,7 +76,8 @@ public class Game1 {
             }
             else if (getCurrentPlayer()!=playerIds[i]){
             System.out.println("Tidak sedang dalam giliran");
-            }        
+            }
+            System.out.println();        
         }
     }
 
