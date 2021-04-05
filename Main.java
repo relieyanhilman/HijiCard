@@ -71,10 +71,11 @@ public class Main {
                             pilihan = sc.next();
                         } else if (pilihan.equals("F06")) {
                             System.out.println("List Players");
-
+                            HIJI.ListPlayers();
                             pilihan = sc.next();
                         } else if (pilihan.equals("F07")) {
                             System.out.println("View Player in Turn");
+                            HIJI.ViewPlayerInTurn();
                             pilihan = sc.next();
                         } else if (pilihan.equals("F08")) {
                             System.out.println("Help");
