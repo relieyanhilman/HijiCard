@@ -25,7 +25,7 @@ public class Main {
 
                     System.out.print("Masukkan banyaknya pemain: ");
                     int banyakPemain = sc.nextInt();
-                    while (banyakPemain>6 && banyakPemain<2){
+                    while (banyakPemain>6 || banyakPemain<2){
                         System.out.println("Jumlah yang dimasukkan tidak sesuai!");
                         System.out.print("Masukkan banyaknya pemain: ");
                         banyakPemain = sc.nextInt();

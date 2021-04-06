@@ -326,8 +326,19 @@ public class Game1 {
                     HijiCard.Color colorChoosen = HijiCard.Color.Red;
                     HijiCard cardChoosen = getPlayerCard(getCurrentPlayer(), pilihanKartu);
                     if ((cardChoosen.getColors() == validColor) && (cardChoosen.getValues() == validValue)){
+                        
                         jumlahKartuSubmit = jumlahKartuSubmit + 1;
-                        submitPlayerCard(getCurrentPlayer(), cardChoosen, colorChoosen);
+                        pHand.remove(cardChoosen);
+
+                        if (hasEmptyHand(this.playerIds[currentPlayer])) {
+                            String message2 = this.playerIds[currentPlayer] + ("Congratulation you won the game! Thank you for playing!");
+                            // message2.setFont(new Font("Arial", Font.BOLD, 48));
+                            // JOptionPane.showMessageDialog(null, message2);
+                            System.exit(0);
+                        }
+                        
+                        stockPile.add(card);
+
                     }
                     else{
                         System.out.println("kartu anda tidak valid. game akan dilanjutkan");
@@ -335,7 +346,7 @@ public class Game1 {
         } 
 
         jumlahKartuSubmit = jumlahKartuSubmit +1;
-        
+    
         
 
         if (gameDirection == false) {
@@ -358,6 +369,16 @@ public class Game1 {
             for(int i = 0; i< (jumlahKartuSubmit); i++){
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
+            if (gameDirection == false) {
+                currentPlayer = (currentPlayer + 1) % playerIds.length;
+            }
+    
+            else if(gameDirection == true) {
+                currentPlayer = (currentPlayer - 1) % playerIds.length;
+                if (currentPlayer == -1) {
+                    currentPlayer = playerIds.length - 1;
+                }
+            }
         }
             // JLabel message = new JLabel(pid + " drew 2 cards!");
         }
@@ -369,6 +390,16 @@ public class Game1 {
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
             getPlayerHand(pid).add(deck.drawCard());
+            if (gameDirection == false) {
+                currentPlayer = (currentPlayer + 1) % playerIds.length;
+            }
+    
+            else if(gameDirection == true) {
+                currentPlayer = (currentPlayer - 1) % playerIds.length;
+                if (currentPlayer == -1) {
+                    currentPlayer = playerIds.length - 1;
+                }
+            }
             }
             // JLabel message = new JLabel(pid + " drew 4 cards!");
         }
@@ -398,38 +429,26 @@ public class Game1 {
             // message.setFont(new Font("Arial", Font.BOLD, 48));
             // JOptionPane.showMessageDialog(null, message);
 
-            
-            gameDirection ^= true;
-            if (gameDirection == true) {
-                currentPlayer = (currentPlayer -2) % playerIds.length;
-                if (currentPlayer == -1){
-                    currentPlayer = playerIds.length -1 ;
-                }
-
-                if (currentPlayer == -2) {
-                    currentPlayer = playerIds.length -2;
-                }
-            }
-            else if (gameDirection == false) {
-                currentPlayer = (currentPlayer + 2) % playerIds.length;
-            }
-            
-            for(int i = 0; i< (jumlahKartuSubmit-1); i++){
+            if (jumlahKartuSubmit % 2 == 1){
                 gameDirection ^= true;
-                if (gameDirection == false) {
-                    currentPlayer = (currentPlayer + 1) % playerIds.length;
-                }
-        
-                else if(gameDirection == true) {
-                    currentPlayer = (currentPlayer - 1) % playerIds.length;
-                    if (currentPlayer == -1) {
-                        currentPlayer = playerIds.length - 1;
+                if (gameDirection == true) {
+                    currentPlayer = (currentPlayer -2) % playerIds.length;
+                    if (currentPlayer == -1){
+                        currentPlayer = playerIds.length -1 ;
+                    }
+    
+                    if (currentPlayer == -2) {
+                        currentPlayer = playerIds.length -2;
                     }
                 }
+                else if (gameDirection == false) {
+                    currentPlayer = (currentPlayer + 2) % playerIds.length;
+                }
+                
             }
-
-        
+            
     }
+    
     jumlahKartuSubmit = 0;
 
 }

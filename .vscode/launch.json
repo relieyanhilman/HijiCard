@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Main2",
+            "request": "launch",
+            "mainClass": "Main2",
+            "projectName": "tubesHiji_cc5d3d59"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
