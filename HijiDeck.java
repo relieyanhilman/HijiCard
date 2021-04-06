@@ -21,8 +21,6 @@ public class HijiDeck {
             cards[cardsInDeck++] = new HijiCard(warna, HijiCard.Value.getValue(0));
 
             for (int j = 1; j < 10; j++) {
-                // HijiCard.Value[] values = HijiCard.Value.values();
-                // HijiCard.Value nilai = values[i];
 
                 cards[cardsInDeck++] = new HijiCard(warna, HijiCard.Value.getValue(j));
                 cards[cardsInDeck++] = new HijiCard(warna, HijiCard.Value.getValue(j));
@@ -48,10 +46,6 @@ public class HijiDeck {
 
     }
 
-    // public void replaceDeckWith(ArrayList<HijiCard> cards) {
-    // this.cards = cards.toArray(new HijiCard(cards.si));
-    // }
-
     public void replaceDeckWith(ArrayList<HijiCard> cards) {
         this.cards = cards.toArray(new HijiCard[cards.size()]);
         this.cardsInDeck = this.cards.length;
@@ -66,9 +60,6 @@ public class HijiDeck {
         Random random = new Random();
 
         for (int i = 0; i < cards.length; i++) {
-            // Get a random index of the array past the current index
-            // ... The argument is an exclusive bound
-            // swap the random element with the present element
             int randomValue = i + random.nextInt(n - i);
             HijiCard randomCard = cards[randomValue];
             cards[randomValue] = cards[i];
@@ -79,26 +70,18 @@ public class HijiDeck {
 
     public HijiCard drawCard() throws IllegalArgumentException {
         if (isEmpty()) {
-            throw new IllegalArgumentException(" Tidak bisa draw kartu karena tidak ada kartu di deck");
+            throw new IllegalArgumentException(" Tidak bisa draw kartu karena tidak ada kartu pada deck");
         }
         return cards[--cardsInDeck];
     }
 
-    // public ImageIcon drawCardImage() throws IllegalArgumentException {
-    //     if (isEmpty()) {
-    //         throw new IllegalArgumentException("tidak bisa draw kartu karena deck kosong");
-    //     }
-    //     return new ImageIcon(cards[--cardsInDeck].toString() + ".png");
-    // }
-
-
     public HijiCard[] drawCard(int n){
         if (n< 0) {
-            throw new IllegalArgumentException("harus menarik kartu sejumlah angka positif tetapi anda mencoba untuk menarik " + n + "kartu");
+            throw new IllegalArgumentException("Kartu harus ditarik sejumlah angka positif tetapi kamu mencoba untuk menarik " + n + "kartu!");
         }
 
         if (n > cardsInDeck) {
-            throw new IllegalArgumentException("tidak bisa menarik sejumlah " + n + " kartu karena hanya ada " + cardsInDeck + " kartu");
+            throw new IllegalArgumentException("Tidak dapat menarik " + n + " kartu karena hanya ada " + cardsInDeck + " kartu");
         }
     HijiCard[] ret = new HijiCard[n];
 

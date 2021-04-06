@@ -23,6 +23,11 @@ Deskripsi Power Card
 - Wild          : Kartu yang dapat submit untuk semua jenis warna dan pemain yang men-submit kartu ini diharuskan memilih warna yang akan digunakan untuk giliran selanjutnya
 - Wild Four      : Sama seperti Wild hanya saja setelah kartu ini di submit, akan dibebankan tambahan 4 kartu dari deck kepada pemain selanjutnya yang tidak mempunyai kartu ini.
 
+
+Tahapan Kompilasi dan Menjalankan Program
+Memasukkan input command "Javac Main.java" kemudian "Java Main" pada terminal dan meng-nput fungsi yang ada sesuai keinginan (F01-F10 dan EXIT)
+
+
 Bonus Implementasi
 - Exception
 

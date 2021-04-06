@@ -1,25 +1,23 @@
-
+ 
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.Random;
 import java.util.Scanner;
 
-public class Game1 {
+public class Game1 implements player {
     Scanner sc = new Scanner(System.in);
-    int jumlahKartuSubmit = 0; //untuk keperluan multiple discard, sebagai penghitung seberapa banyak kartu yang telah disubmit dalam 1 waktu
+    GenericPrint gp2 = new GenericPrint();
+    int jumlahKartuSubmit = 0; 
+    // Untuk keperluan multiple discard, sebagai penghitung seberapa banyak kartu yang telah disubmit dalam 1 waktu
     private int currentPlayer;
     int pemainSelanjutnya;
     private String[] playerIds; 
-
     private HijiDeck deck; 
     private ArrayList<ArrayList<HijiCard>> playerHand;
     private ArrayList<HijiCard> stockPile;
-
     private HijiCard.Color validColor;
     private HijiCard.Value validValue;
-
     boolean gameDirection;
 
     public Game1(String[] pids) {
@@ -39,13 +37,11 @@ public class Game1 {
             ArrayList<HijiCard> hand = new ArrayList<HijiCard>(Arrays.asList(deck.drawCard(7)));
             playerHand.add(hand);
         }
-
     }
     
-    //shuffle urutan pemain pada awal permainan
+    // Shuffle urutan pemain pada awal permainan
     public void randomPemain(){  
         Random random = new Random();
-
         int randomValue = random.nextInt(playerIds.length);
         currentPlayer = randomValue;
     }
@@ -59,7 +55,6 @@ public class Game1 {
              nomor++;
          }
     }
-    
 
     // F06
     public void ListPlayers() {
@@ -78,15 +73,12 @@ public class Game1 {
         }
     }
 
-
     // F07
     public void ViewPlayerInTurn() {
-        System.out.println("Sekarang giliran : "+getCurrentPlayer());
-       
+        System.out.println("Sekarang giliran : "+getCurrentPlayer());     
         if (gameDirection == false) {
             pemainSelanjutnya = ((currentPlayer + 1) % playerIds.length);
         }
-
         else if(gameDirection == true) {
             pemainSelanjutnya = (currentPlayer - 1) % playerIds.length;
             if (currentPlayer == -1) {
@@ -100,7 +92,6 @@ public class Game1 {
 
 	public void start(Game1 game) {
         HijiCard card = deck.drawCard();
-        // System.out.println(card);
         validColor = card.getColors();
         validValue = card.getValues();
 
@@ -113,10 +104,7 @@ public class Game1 {
         }
 
         if (card.getValues() == HijiCard.Value.Skip) {
-            // JLabel message = new JLabel(playerIds[currentPlayer] + "was skipped!");
-            // message.setFont(new Font("Arial", Font.BOLD, 48));
-            // JOptionPane.showMessageDialog(null, message);
-
+           
             if (gameDirection == false) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;
             }
@@ -130,13 +118,8 @@ public class Game1 {
 
         }
         if (card.getValues() == HijiCard.Value.Reverse) {
-            // JLabel message = new JLabel(playerIds[currentPlayer] + " The game direction changed! ");
-            // message.setFont(new Font("Arial", Font.BOLD, 48));
-            // JOptionPane.showMessageDialog(null, message);
             gameDirection ^= true;
             currentPlayer = playerIds.length - 1;
-
-
         }
 
         stockPile.add(card);
@@ -145,10 +128,6 @@ public class Game1 {
     public HijiCard getTopCard() {
         return new HijiCard(validColor, validValue);
     }
-        
-    // public ImageIcon getTopCardImage() {
-    //     return new ImageIcon(validColor + "-"+ validValue+ ".png");
-    // }
 
     public boolean isGameOver() {
         for (String player : this.playerIds){
@@ -200,23 +179,14 @@ public class Game1 {
         return card.getColors() == validColor || card.getValues() == validValue;
     }
 
-    // public void checkPlayerTurn(String pid) throws InvalidPlayerTurnException {
-    //     if (this.playerIds[this.currentPlayer] != pid) {
-    //         throw new InvalidPlayerTurnException("it is not " + pid + " 's turn", pid);
-    //     }
-        
-    // }
 
-    public void submitDraw(String pid){ 
-        
-
+    public void submitDraw(String pid){      
         if (deck.isEmpty()) {
             deck.replaceDeckWith(stockPile);
             deck.shuffle();
         }
 
         getPlayerHand(pid).add(deck.drawCard());
-        
     }
 
     public void lanjutMain(){
@@ -235,34 +205,26 @@ public class Game1 {
     public void setCardColor (HijiCard.Color color) {
         validColor = color;
     }
-
-    
+ 
     public void submitPlayerCard(String pid, HijiCard card, HijiCard.Color declaredColor) 
         throws InvalidCardSubmissionException {
-            // checkPlayerTurn(pid);
-
-            ArrayList<HijiCard> pHand = getPlayerHand(pid);
-            
+            ArrayList<HijiCard> pHand = getPlayerHand(pid);    
             if(!validCardPlay(card)) {
                 if (card.getColors() == HijiCard.Color.Wild) {
                     validColor = card.getColors();
                     validValue = card.getValues();
                 }
-
     
                 HijiCard.Value actual;
                 HijiCard.Value expected;
-
                 
                 if ((card.getColors() != validColor)) {
-                        String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();
-                        
+                        String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();                   
                         throw new InvalidCardSubmissionException(message);   
                     }
                   
                 else if (card.getValues() != validValue){
-                    String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
-                   
+                    String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();                 
                     throw new InvalidCardSubmissionException(message2);
                 }
                 
@@ -270,10 +232,10 @@ public class Game1 {
 
         pHand.remove(card);
 
+        // Pengondisian Declare HIJI
         long startTime;
         String inputhiji;
         if (getPlayerHandSize(this.playerIds[currentPlayer]) == 1){
-
 
             System.out.println("Waktunya declare HIJI!");
             
@@ -283,21 +245,19 @@ public class Game1 {
 
             if ((inputhiji == "HIJI") && (System.currentTimeMillis() - startTime > 1000)){
               
-                System.out.println("Declare HIJI sukses!");
-                
-            } 
+                System.out.println("Declare HIJI sukses!");      
+                } 
 
             if (System.currentTimeMillis() - startTime > 3000){
-                System.out.println("Kamu telat declare HIJI! Selamat kamu dapat tambahan hadiah 2 kartu!");
+                System.out.println("Kamu telat declare HIJI! Kamu dapat tambahan 2 kartu!");
                 getPlayerHand(pid).add(deck.drawCard());
                 getPlayerHand(pid).add(deck.drawCard());
+                }
             }
-            }
-
-
 
         if (hasEmptyHand(this.playerIds[currentPlayer])) {
-            String message2 = this.playerIds[currentPlayer] + ("Congratulation you won the game! Thank you for playing!");
+            String message2 = this.playerIds[currentPlayer] + ("Selamat kamu menang! Sampai jumpa lagi di dunia HIJI!");
+            gp2.printAnything(message2);
             
             System.exit(0);
         }
@@ -308,26 +268,26 @@ public class Game1 {
 
         stockPile.add(card);
         
-        System.out.println("apakah ingin melakukan submit lagi? ya / tidak");
+        System.out.println("Apakah ingin melakukan submit lagi? Ya / Tidak");
         String decision = sc.next();
         
         
-        while (!decision.equals("tidak")){
+        while (!decision.equals("Tidak")){
             
                     System.out.println("Multiple Discard");
-                    System.out.println("silakan pilih nomor kartu di list kartu: ");
+                    System.out.println("Silahkan pilih nomor kartu di list kartu: ");
                     ListCards(getCurrentPlayer());
                     int pilihanKartu = sc.nextInt();
                             
                     HijiCard.Color colorChoosen = HijiCard.Color.Red;
-                    HijiCard cardChoosen = getPlayerCard(getCurrentPlayer(), pilihanKartu);
+                    HijiCard cardChoosen = getPlayerCard(getCurrentPlayer(), pilihanKartu - 1);
                     if ((cardChoosen.getColors() == validColor) && (cardChoosen.getValues() == validValue)){
                         
                         jumlahKartuSubmit = jumlahKartuSubmit + 1;
                         pHand.remove(cardChoosen);
 
                         if (hasEmptyHand(this.playerIds[currentPlayer])) {
-                            String message2 = this.playerIds[currentPlayer] + ("Congratulation you won the game! Thank you for playing!");
+                            String message2 = this.playerIds[currentPlayer] + ("Selamat kamu menang! Sampai jumpa lagi di dunia HIJI!");
                             
                             System.exit(0);
                         }
@@ -336,10 +296,10 @@ public class Game1 {
                         
                     }
                     else{
-                        System.out.println("kartu anda tidak valid. game akan dilanjutkan");
+                        System.out.println("Kartu kamu tidak valid. Game akan dilanjutkan");
                     }
 
-                    System.out.println("apakah ingin melakukan submit lagi? ya / tidak");
+                    System.out.println("Apakah kamu ingin melakukan submit lagi? Ya / Tidak");
                     decision = sc.next();
         } 
 
@@ -399,18 +359,13 @@ public class Game1 {
                 }
             }
             }
-            // JLabel message = new JLabel(pid + " drew 4 cards!");
         }
 
         if (card.getValues() == HijiCard.Value.Skip) {
-            // JLabel message = new JLabel(playerIds[currentPlayer] + (" was skipped!"));
-            // message.setFont(new Font("Arial", Font.BOLD, 48));
-            // JOptionPane.showMessageDialog(null, message);
             
             for(int i = 0; i< (jumlahKartuSubmit); i++){
             if (gameDirection == false) {
                 currentPlayer = (currentPlayer + 1) % playerIds.length;
-
             }
 
             else if(gameDirection == true){
@@ -423,9 +378,6 @@ public class Game1 {
         }
 
         if (card.getValues() == HijiCard.Value.Reverse) {
-            // JLabel message = new JLabel(pid + (" changed the game direction"));
-            // message.setFont(new Font("Arial", Font.BOLD, 48));
-            // JOptionPane.showMessageDialog(null, message);
 
             if (jumlahKartuSubmit % 2 == 1){
                 gameDirection ^= true;
@@ -452,10 +404,7 @@ public class Game1 {
 }
 
 class InvalidPlayerTurnException extends Exception {
-    /**
-     *
-     */
-    // private static final long serialVersionUID = 1L;
+
     String playerId;
 
     public InvalidPlayerTurnException(String message, String pid) {

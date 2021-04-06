@@ -39,3 +39,21 @@ public class HijiCard{
 		return color + "_" + value;
 	}
 }
+
+class SpecialCard {
+	public void cardPower() {
+	  System.out.println("Tiap power card memiliki kekuatannya masing-masing");
+	}
+  }
+  
+  class Skip extends SpecialCard {
+	public void cardPower() {
+	  System.out.println("Kartu ini dapat men-skip giliran pemain selanjutnya");
+	}
+  }
+  
+  class Reverse extends SpecialCard {
+	public void cardPower() {
+	  System.out.println("Kartu ini dapat memutarbalikkan urutan permainan");
+	}
+  }
