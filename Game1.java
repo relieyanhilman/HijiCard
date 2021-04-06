@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class Game1 {
     private int currentPlayer;
+    int pemainSelanjutnya;
     String[] playerIds; //nnti diubah lagi jadi private
 
     HijiDeck deck; /* nanti diubah lagi jadi private */
@@ -71,10 +72,10 @@ public class Game1 {
         for (int i=0 ; i<=(getPlayers().length-1) ;i++){
             System.out.println("Pemain "+nomor+": "+playerIds[i]);
             System.out.println("Jumlah kartu : "+getPlayerHandSize(playerIds[i]));
-            if (getCurrentPlayer()==playerIds[i]){
+            if (playerIds[i] == getCurrentPlayer()){
             System.out.println("Sedang  giliran");
             }
-            else if (getCurrentPlayer()!=playerIds[i]){
+            else if (playerIds[i] != getCurrentPlayer()){
             System.out.println("Tidak sedang dalam giliran");
             }
             System.out.println();
@@ -86,7 +87,19 @@ public class Game1 {
     // F07
     public void ViewPlayerInTurn() {
         System.out.println("Sekarang giliran : "+getCurrentPlayer());
-        System.out.println("Selanjutnya giliran : "+playerIds[(this.currentPlayer+1) % playerIds.length]);
+       
+        if (gameDirection == false) {
+            pemainSelanjutnya = ((currentPlayer + 1) % playerIds.length);
+        }
+
+        else if(gameDirection == true) {
+            pemainSelanjutnya = (currentPlayer - 1) % playerIds.length;
+            if (currentPlayer == -1) {
+                pemainSelanjutnya = playerIds.length - 1;
+            }
+        }
+        System.out.println("Selanjutnya giliran: " + playerIds[pemainSelanjutnya]);
+       
     }
     
 
@@ -239,7 +252,7 @@ public class Game1 {
     }
 
     public void submitPlayerCard(String pid, HijiCard card, HijiCard.Color declaredColor) 
-        throws InvalidColorSubmissionException, InvalidValueSubmissionException, InvalidPlayerTurnException {
+        throws InvalidColorSubmissionException, InvalidValueSubmissionException {
             // checkPlayerTurn(pid);
 
             ArrayList<HijiCard> pHand = getPlayerHand(pid);
@@ -255,12 +268,13 @@ public class Game1 {
                 HijiCard.Value expected;
 
                 
-                    if ((card.getColors() != validColor) && (card.getValues() != validValue)) {
+                if ((card.getColors() != validColor) && (card.getValues() != validValue)) {
                         String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();
-                        String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
+                        
                         // message.setFont(new Font("Arial", Font.BOLD, 48));
                         // JOptionPane.showMessageDialog(null, message);
                         throw new InvalidColorSubmissionException(message, card.getColors(), validColor);
+                        
                         // message2.setFont(new Font("Arial", Font.BOLD, 48));
                         // JOptionPane.showMessageDialog(null, message2);
                         // throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
@@ -269,12 +283,12 @@ public class Game1 {
                   
                 
 
-                // else if (card.getValues() != validValue){
-                //     String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
-                //     // message2.setFont(new Font("Arial", Font.BOLD, 48));
+                else if (card.getValues() != validValue){
+                    String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
+                    // message2.setFont(new Font("Arial", Font.BOLD, 48));
                 //     // JOptionPane.showMessageDialog(null, message2);
-                //     throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
-                // }
+                    throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
+                }
                 
             }
 

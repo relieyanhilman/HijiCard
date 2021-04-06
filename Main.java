@@ -33,8 +33,7 @@ public class Main {
 
                     String[] Pemain = new String[banyakPemain];
                     String str = null;
-                    boolean submitted = false;
-                    boolean udahDraw = false;
+                    
                     System.out.println("Masukkan nama pemain: ");
                     for (int i = 0; i< banyakPemain; i++){
                         Pemain[i] = sc.next();
@@ -44,10 +43,8 @@ public class Main {
                     Game1 HIJI = new Game1(Pemain);
 
                     HIJI.start(HIJI);
-                    System.out.println("yang bermain sekarang:" + HIJI.getCurrentPlayer());
-                    // System.out.println(HIJI.deck.cardsInDeck); ini apa ya?
-
-                    System.out.println("kartu yang " + HIJI.getCurrentPlayer() + "punya sekarang " + HIJI.getPlayerHand(HIJI.getCurrentPlayer()));
+                    System.out.println("yang bermain sekarang:" + HIJI.getCurrentPlayer() + "\n");
+                    
                     
 
                     // pilihan = sc.next();
@@ -69,7 +66,7 @@ public class Main {
                             
                            
                             if (cardChoosen.getColors() == HijiCard.Color.Wild) {
-                                System.out.println("silakan pilih warna: \n 1. Red \n 2. Blue \n 3. Yellow \n 4. Green");
+                                System.out.println("silakan pilih warna: \n 1. Red \n 2. Blue \n 3. Yellow \n 4. Green \n pilih dengan menginput warna" );
                                 
                                 String pilihanWarna = sc.next();
                                 if (pilihanWarna.equals("Red")){
@@ -84,54 +81,99 @@ public class Main {
                                     colorChoosen = HijiCard.Color.Yellow;
                                 } }
                             
-                            
-
-                            System.out.println("apakah aman?");
                         
                             try{HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
-                                HIJI.getPlayerHand(HIJI.getCurrentPlayer());}
+                                System.out.println("kartu tersubmit");    
+                            }
                                 catch (InvalidColorSubmissionException e) {
-                                       System.out.println(e);
-                                }
-                                catch (InvalidPlayerTurnException e) {
                                        System.out.println(e);
                                 }
                                 catch (InvalidValueSubmissionException e) {
                                        System.out.println(e);
                                 }
-                            
+                                
+                                
+                            System.out.println("silakan pilih menu: ");
                             pilihan = sc.next();
                          } else if (pilihan.equals("F04")) {
+                            
                             System.out.println("Draw");
                             
                             HIJI.submitDraw(HIJI.getCurrentPlayer());
-                            
-                            
-                            pilihan = sc.next();
-                            if (pilihan.equals("F09")){
-                                System.out.println("lanjut main");
+                            System.out.println("kartu yang anda dapatkan adalah " + HIJI.getPlayerCard(HIJI.getCurrentPlayer(), (HIJI.getPlayerHandSize(HIJI.getCurrentPlayer()) - 1)));
+                            System.out.println("apakah ingin mensubmit kartu : ya / tidak");
+                            String submission = sc.next();
+                            if (submission.equals("ya")){
+                                HijiCard.Color colorChoosen = HijiCard.Color.Red;  //warna default
+                                System.out.println("Discard");
+                                System.out.println("silakan pilih nomor kartu di list kartu: ");
+                                int pilihanKartu = sc.nextInt();
                                 
+                                HijiCard cardChoosen = HIJI.getPlayerCard(HIJI.getCurrentPlayer(), pilihanKartu);
+                                
+                           
+                                if (cardChoosen.getColors() == HijiCard.Color.Wild) {
+                                    System.out.println("silakan pilih warna: \n 1. Red \n 2. Blue \n 3. Yellow \n 4. Green \n pilih dengan menginput warna" );
+                                    
+                                    String pilihanWarna = sc.next();
+                                    if (pilihanWarna.equals("Red")){
+                                        colorChoosen = HijiCard.Color.Red;
+                                    }
+                                    else if (pilihanWarna.equals("Blue")){
+                                        colorChoosen = HijiCard.Color.Blue;
+                                    }
+                                    else if (pilihanWarna.equals("Green")){
+                                        colorChoosen = HijiCard.Color.Green;
+                                    }else if (pilihanWarna.equals("Yellow")){
+                                        colorChoosen = HijiCard.Color.Yellow;
+                                    } }
+                                
+                            
+                                try{HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
+                                    System.out.println("kartu tersubmit");    
+                                }
+                                    catch (InvalidColorSubmissionException e) {
+                                        System.out.println(e);
+                                    }
+                                    catch (InvalidValueSubmissionException e) {
+                                        System.out.println(e);
+                                    }
+
+                            } else if (submission.equals("tidak")){
                                 HIJI.lanjutMain();
+                            } else {System.out.println("input antara ya / tidak, silakan input ulang.");
+                                submission = sc.next();
                             }
+                                
+                            System.out.println("silakan pilih menu: ");
+                            pilihan = sc.next();
                         } else if (pilihan.equals("F05")) {
                             System.out.println("Declare HIJI");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F06")) {
                             System.out.println("List Players");
                             HIJI.ListPlayers();
+                            System.out.println("silakan pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F07")) {
                             System.out.println("View Player in Turn");
                             HIJI.ViewPlayerInTurn();
+                            System.out.println("silakan pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F08")) {
                             System.out.println("Help");
+                            System.out.println("silakan pilih menu: ");
                             pilihan = sc.next();
                         }
                         else if (pilihan.equals("EXIT")){
-                            System.exit(0);
-                        } //else 
-                    }
+                            System.out.println("keluar dari game");
+                            System.exit(0); 
+                        } else {
+                            System.out.println("input tidak sesuai, silakan pilih menu :");
+                            pilihan = sc.next();
+                        }//else 
+                    } System.out.println("game sedang berjalan, silakan pilih menu: ");
+                    pilihan = sc.next();
 
 
                     // if (pilihanFungsi.equals("F04")){
@@ -155,7 +197,12 @@ public class Main {
                     
 
                 } 
+                else {
+                    System.out.println("game belum dijalankan, silakan jalankan game terlebih dahulu dengan menginput F01");
+                    pilihan = sc.next();
+                }
             } System.exit(0);
         } 
     }
 
+ 
