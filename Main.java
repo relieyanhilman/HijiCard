@@ -101,6 +101,8 @@ public class Main {
                             
                             HIJI.submitDraw(HIJI.getCurrentPlayer());
                             System.out.println("kartu yang anda dapatkan adalah " + HIJI.getPlayerCard(HIJI.getCurrentPlayer(), (HIJI.getPlayerHandSize(HIJI.getCurrentPlayer()) - 1)));
+                            System.out.println("list kartu anda sekarang: ");
+                            HIJI.ListCards(HIJI.getCurrentPlayer());
                             System.out.println("apakah ingin mensubmit kartu : ya / tidak");
                             String submission = sc.next();
                             if (submission.equals("ya")){

@@ -50,9 +50,7 @@ public class Game1 {
 
         
         int randomValue = random.nextInt(playerIds.length);
-        System.out.println("random Value :" + randomValue);
         currentPlayer = randomValue;
-        
     }
 
     // F02
