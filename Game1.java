@@ -1,21 +1,19 @@
-import java.awt.Font;
+
 import java.io.InvalidClassException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class Game1 {
     Scanner sc = new Scanner(System.in);
-    int jumlahKartuSubmit = 0;
+    int jumlahKartuSubmit = 0; //untuk keperluan multiple discard, sebagai penghitung seberapa banyak kartu yang telah disubmit dalam 1 waktu
     private int currentPlayer;
     int pemainSelanjutnya;
-    String[] playerIds; //nnti diubah lagi jadi private
+    private String[] playerIds; 
 
-    HijiDeck deck; /* nanti diubah lagi jadi private */
+    private HijiDeck deck; 
     private ArrayList<ArrayList<HijiCard>> playerHand;
     private ArrayList<HijiCard> stockPile;
 
@@ -26,9 +24,6 @@ public class Game1 {
 
     public Game1(String[] pids) {
         deck = new HijiDeck();
-        
-
-        // deck.shuffle();
         deck.reset();
         deck.shuffle();
         stockPile = new ArrayList<HijiCard>();
@@ -48,10 +43,9 @@ public class Game1 {
     }
     
     //shuffle urutan pemain pada awal permainan
-    public void randomPemain(){
+    public void randomPemain(){  
         Random random = new Random();
 
-        
         int randomValue = random.nextInt(playerIds.length);
         currentPlayer = randomValue;
     }
@@ -213,26 +207,16 @@ public class Game1 {
         
     // }
 
-    public void submitDraw(String pid){ //throws InvalidPlayerTurnException 
-        // checkPlayerTurn(pid);
+    public void submitDraw(String pid){ 
+        
 
         if (deck.isEmpty()) {
             deck.replaceDeckWith(stockPile);
             deck.shuffle();
-
         }
 
         getPlayerHand(pid).add(deck.drawCard());
-        // if(gameDirection == false){
-        //     currentPlayer = (currentPlayer +1) % playerIds.length;
-        // }
-
-        // else if(gameDirection == true){
-        //     currentPlayer = (currentPlayer -1) % playerIds.length;
-        //     if (currentPlayer == -1) {
-        //         currentPlayer = playerIds.length - 1;
-        //     }
-        // } karena abis draw masih bisa nge submit card
+        
     }
 
     public void lanjutMain(){
@@ -259,15 +243,13 @@ public class Game1 {
 
             ArrayList<HijiCard> pHand = getPlayerHand(pid);
             
-            
-
             if(!validCardPlay(card)) {
                 if (card.getColors() == HijiCard.Color.Wild) {
                     validColor = card.getColors();
                     validValue = card.getValues();
                 }
 
-                
+    
                 HijiCard.Value actual;
                 HijiCard.Value expected;
 
@@ -275,22 +257,12 @@ public class Game1 {
                 if ((card.getColors() != validColor)) {
                         String message = "Invalid player move, expected color: " + validColor + " but got color " + card.getColors();
                         
-                        // message.setFont(new Font("Arial", Font.BOLD, 48));
-                        // JOptionPane.showMessageDialog(null, message);
-                        throw new InvalidCardSubmissionException(message);
-                        
-                        // message2.setFont(new Font("Arial", Font.BOLD, 48));
-                        // JOptionPane.showMessageDialog(null, message2);
-                        // throw new InvalidValueSubmissionException(message2, card.getValues(), validValue);
-                        
+                        throw new InvalidCardSubmissionException(message);   
                     }
                   
-                
-
                 else if (card.getValues() != validValue){
                     String message2 = "Invalid player move, expected color: " + validValue + " but got color " + card.getValues();
-                    // message2.setFont(new Font("Arial", Font.BOLD, 48));
-                //     // JOptionPane.showMessageDialog(null, message2);
+                   
                     throw new InvalidCardSubmissionException(message2);
                 }
                 
@@ -298,18 +270,39 @@ public class Game1 {
 
         pHand.remove(card);
 
+        long startTime;
+        String inputhiji;
+        if (getPlayerHandSize(this.playerIds[currentPlayer]) == 1){
+
+
+            System.out.println("Waktunya declare HIJI!");
+            
+            startTime = System.currentTimeMillis();
+            System.out.println("Ketik HIJI dalam 3 detik");
+            inputhiji = sc.next().toUpperCase();
+
+            if ((inputhiji == "HIJI") && (System.currentTimeMillis() - startTime > 1000)){
+              
+                System.out.println("Declare HIJI sukses!");
+                
+            } 
+
+            if (System.currentTimeMillis() - startTime > 3000){
+                System.out.println("Kamu telat declare HIJI! Selamat kamu dapat tambahan hadiah 2 kartu!");
+                getPlayerHand(pid).add(deck.drawCard());
+                getPlayerHand(pid).add(deck.drawCard());
+            }
+            }
+
+
+
         if (hasEmptyHand(this.playerIds[currentPlayer])) {
             String message2 = this.playerIds[currentPlayer] + ("Congratulation you won the game! Thank you for playing!");
-            // message2.setFont(new Font("Arial", Font.BOLD, 48));
-            // JOptionPane.showMessageDialog(null, message2);
+            
             System.exit(0);
         }
 
-        // if (cardLeftOne(getCurrentPlayer())){
-            
-            
-        // }
-
+        
         validColor = card.getColors();
         validValue = card.getValues();
 
@@ -317,7 +310,10 @@ public class Game1 {
         
         System.out.println("apakah ingin melakukan submit lagi? ya / tidak");
         String decision = sc.next();
-        if (decision.equals("ya")){
+        
+        
+        while (!decision.equals("tidak")){
+            
                     System.out.println("Multiple Discard");
                     System.out.println("silakan pilih nomor kartu di list kartu: ");
                     ListCards(getCurrentPlayer());
@@ -332,23 +328,24 @@ public class Game1 {
 
                         if (hasEmptyHand(this.playerIds[currentPlayer])) {
                             String message2 = this.playerIds[currentPlayer] + ("Congratulation you won the game! Thank you for playing!");
-                            // message2.setFont(new Font("Arial", Font.BOLD, 48));
-                            // JOptionPane.showMessageDialog(null, message2);
+                            
                             System.exit(0);
                         }
                         
                         stockPile.add(card);
-
+                        
                     }
                     else{
                         System.out.println("kartu anda tidak valid. game akan dilanjutkan");
                     }
+
+                    System.out.println("apakah ingin melakukan submit lagi? ya / tidak");
+                    decision = sc.next();
         } 
 
         jumlahKartuSubmit = jumlahKartuSubmit +1;
     
-        
-
+        //melanjutkan permainan ke pemain selanjutnya
         if (gameDirection == false) {
             currentPlayer = (currentPlayer + 1) % playerIds.length;
         }
@@ -360,6 +357,7 @@ public class Game1 {
             }
         }
 
+        
         if (card.getColors() == HijiCard.Color.Wild) {
             validColor = declaredColor;
         }
@@ -380,7 +378,7 @@ public class Game1 {
                 }
             }
         }
-            // JLabel message = new JLabel(pid + " drew 2 cards!");
+            
         }
         
         if (card.getValues() == HijiCard.Value.WildFour) {
@@ -470,24 +468,6 @@ class InvalidPlayerTurnException extends Exception {
     }
 }
 }
-// class InvalidColorSubmissionException extends Exception {
-//     private HijiCard.Color expected;
-//     private HijiCard.Color actual;
-//     public InvalidColorSubmissionException(String message, HijiCard.Color actual, HijiCard.Color expected) {
-//         this.actual = actual;
-//         this.expected = expected;
-//     }
-// }
-
-// class InvalidValueSubmissionException extends Exception {
-//     private HijiCard.Value expected;
-//     private HijiCard.Value actual;
-
-//     public InvalidValueSubmissionException(String message, HijiCard.Value actual, HijiCard.Value expected) {
-//         this.actual = actual;
-//         this.expected = expected;
-//     }
-// }
 
 class InvalidCardSubmissionException extends Exception {
     private HijiCard.Color expected;
@@ -496,3 +476,5 @@ class InvalidCardSubmissionException extends Exception {
         System.out.println(message);
     }
 }
+
+
