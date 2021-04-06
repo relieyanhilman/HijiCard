@@ -92,7 +92,7 @@ public class Main {
                             } else {
                                 System.out.println("Input tidak sesuai, silahkan pilih warna yang sesuai: ");
                                 pilihanWarna = sc.next();
-                            }
+                            }}
 
                         try   {
                             HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
@@ -107,7 +107,7 @@ public class Main {
 
                         System.out.print("Silahkan pilih menu: ");
                         pilihan = sc.next();
-                        }
+                        
                     } else if (pilihan.equals("F04")) {
 
                         System.out.println("Draw");
@@ -156,8 +156,8 @@ public class Main {
                                 HIJI.lanjutMain();
                                 System.out.print("Silahkan pilih menu: ");
                                 pilihan = sc.next();
-
                             }
+                          
 
                         } else if (submission.equals("Tidak")) {
                             HIJI.lanjutMain();
