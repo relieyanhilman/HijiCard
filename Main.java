@@ -100,7 +100,6 @@ public class Main {
                         catch (InvalidCardSubmissionException e){
                                 System.out.println(e);
                                 System.out.println("Kartu kamu tidak valid. Game akan dilanjutkan");
-                                HIJI.lanjutMain();
                                 System.out.print("Silahkan pilih menu: ");
                                 pilihan = sc.next();
                         }   
@@ -117,7 +116,7 @@ public class Main {
                                 HIJI.getCurrentPlayer(), (HIJI.getPlayerHandSize(HIJI.getCurrentPlayer()) - 1)));
                         System.out.println("List kartu kamu sekarang: ");
                         HIJI.ListCards(HIJI.getCurrentPlayer());
-                        System.out.println("Apakah ingin mensubmit kartu : ya / tidak");
+                        System.out.println("Apakah ingin mensubmit kartu : Ya / Tidak");
                         String submission = sc.next();
                         if (submission.equals("Ya")) {
                             HijiCard.Color colorChoosen = HijiCard.Color.Red; // warna default
@@ -229,5 +228,5 @@ public class Main {
         System.exit(0);
     }
 }
-    
+
     

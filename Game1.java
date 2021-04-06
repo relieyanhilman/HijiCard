@@ -256,7 +256,7 @@ public class Game1 implements player {
             }
 
         if (hasEmptyHand(this.playerIds[currentPlayer])) {
-            String message2 = this.playerIds[currentPlayer] + ("Selamat kamu menang! Sampai jumpa lagi di dunia HIJI!");
+            String message2 = this.playerIds[currentPlayer] + ", " + ("Selamat kamu menang! Sampai jumpa lagi di dunia HIJI!");
             gp2.printAnything(message2);
             
             System.exit(0);
@@ -287,7 +287,7 @@ public class Game1 implements player {
                         pHand.remove(cardChoosen);
 
                         if (hasEmptyHand(this.playerIds[currentPlayer])) {
-                            String message2 = this.playerIds[currentPlayer] + ("Selamat kamu menang! Sampai jumpa lagi di dunia HIJI!");
+                            String message2 = this.playerIds[currentPlayer] + ", " + ("Selamat kamu menang! Sampai jumpa lagi di dunia HIJI!");
                             
                             System.exit(0);
                         }
