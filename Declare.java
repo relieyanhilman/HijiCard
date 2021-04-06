@@ -7,11 +7,9 @@ while (pid_hiji){
     System.out.println("Waktunya declare HIJI!");
     long startTime;
     String input_hiji;
-    boolean loop;
     startTime = System.currentTimeMillis();
-    while (loop){
-        System.out.println("Ketik HIJI dalam 3 detik");
-        inputhiji = input.next().toUpperCase();
+    System.out.println("Ketik HIJI dalam 3 detik");
+    inputhiji = input.next().toUpperCase();
     }
     if (inputhiji.equals("HIJI")){
         loop = false;
@@ -19,7 +17,7 @@ while (pid_hiji){
         System.out.println("Declare HIJI sukses!");
     }
 if (System.currentTimeMillis() - startTime > 3000){
-    System.out.println("Kamu telat declare HIJI!");
+    System.out.println("Kamu telat declare HIJI! Selamat kamu dapat tambahan hadiah 2 kartu!");
     getPlayerHand(pid).add(deck.drawCard());
     getPlayerHand(pid).add(deck.drawCard());
     player_hiji = false;
