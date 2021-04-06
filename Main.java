@@ -43,7 +43,7 @@ public class Main {
                     Game1 HIJI = new Game1(Pemain);
 
                     HIJI.start(HIJI);
-                    System.out.println("yang bermain sekarang:" + HIJI.getCurrentPlayer() + "\n");
+                    // System.out.println("yang bermain sekarang:" + HIJI.getCurrentPlayer() + "\n");
                     
                     
 
@@ -51,10 +51,11 @@ public class Main {
                     System.out.print("pilih menu: ");
                     pilihan = sc.next();
 
-                    while(!pilihan.equals("F01")){
+                    while(!pilihan.equals("EXIT")){
                         if (pilihan.equals("F02")) {
                             System.out.println("List Cards");
                             HIJI.ListCards(HIJI.getCurrentPlayer()); // asumsi, bisa ngejalanin F02 kalau sudah dilaksanakan F01
+                            System.out.print("pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F03"))  {
                             HijiCard.Color colorChoosen = HijiCard.Color.Red;
@@ -85,15 +86,13 @@ public class Main {
                             try{HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
                                 System.out.println("kartu tersubmit");    
                             }
-                                catch (InvalidColorSubmissionException e) {
-                                       System.out.println(e);
-                                }
-                                catch (InvalidValueSubmissionException e) {
+                                catch (InvalidCardSubmissionException e) {
                                        System.out.println(e);
                                 }
                                 
                                 
-                            System.out.println("silakan pilih menu: ");
+                                
+                            System.out.print("silakan pilih menu: ");
                             pilihan = sc.next();
                          } else if (pilihan.equals("F04")) {
                             
@@ -134,12 +133,18 @@ public class Main {
                                 try{HIJI.submitPlayerCard(HIJI.getCurrentPlayer(), cardChoosen, colorChoosen);
                                     System.out.println("kartu tersubmit");    
                                 }
-                                    catch (InvalidColorSubmissionException e) {
+                                    catch (InvalidCardSubmissionException e) {
                                         System.out.println(e);
+                                        System.out.println("kartu anda tidak valid. Game akan dilanjutkan");
+                                        HIJI.lanjutMain();
+                                        System.out.print("silakan pilih menu: ");
+                                        pilihan = sc.next();
+                                        
                                     }
-                                    catch (InvalidValueSubmissionException e) {
-                                        System.out.println(e);
-                                    }
+                                    
+                                    
+                                        
+                                    
 
                             } else if (submission.equals("tidak")){
                                 HIJI.lanjutMain();
@@ -147,35 +152,44 @@ public class Main {
                                 submission = sc.next();
                             }
                                 
-                            System.out.println("silakan pilih menu: ");
+                            System.out.print("silakan pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F05")) {
                             System.out.println("Declare HIJI");
+
+                            System.out.print("silakan pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F06")) {
                             System.out.println("List Players");
                             HIJI.ListPlayers();
-                            System.out.println("silakan pilih menu: ");
+                            System.out.print("silakan pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F07")) {
                             System.out.println("View Player in Turn");
                             HIJI.ViewPlayerInTurn();
-                            System.out.println("silakan pilih menu: ");
+                            System.out.print("silakan pilih menu: ");
                             pilihan = sc.next();
                         } else if (pilihan.equals("F08")) {
                             System.out.println("Help");
-                            System.out.println("silakan pilih menu: ");
+                            System.out.print("silakan pilih menu: ");
                             pilihan = sc.next();
                         }
-                        else if (pilihan.equals("EXIT")){
-                            System.out.println("keluar dari game");
-                            System.exit(0); 
-                        } else {
+                        else if (pilihan.equals("F01")){
+                            System.out.print("Game sedang dijalankan, silakan pilih menu: ");
+                            pilihan = sc.next(); 
+                        }
+                        else if (pilihan.equals("F10")) {
+                            System.out.print("kartu yang sedang dimainkan : ");
+                            System.out.println(HIJI.getTopCard());
+                            System.out.print("silakan pilih menu: ");
+                            pilihan = sc.next();
+                        }
+                        else {
                             System.out.println("input tidak sesuai, silakan pilih menu :");
                             pilihan = sc.next();
                         }//else 
-                    } System.out.println("game sedang berjalan, silakan pilih menu: ");
-                    pilihan = sc.next();
+                    } System.out.println("game terhenti");
+                    System.exit(0);
 
 
                     // if (pilihanFungsi.equals("F04")){
