@@ -34,7 +34,7 @@ public class Game1 implements player {
         playerHand = new ArrayList<ArrayList<HijiCard>>();
 
         for (int i = 0; i < pids.length; i++) {
-            ArrayList<HijiCard> hand = new ArrayList<HijiCard>(Arrays.asList(deck.drawCard(7)));
+            ArrayList<HijiCard> hand = new ArrayList<HijiCard>(Arrays.asList(deck.drawCard(2)));
             playerHand.add(hand);
         }
     }
